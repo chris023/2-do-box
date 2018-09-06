@@ -3,6 +3,31 @@
 // var numCards = 0;
 // var qualityVariable = 'swill';
 
+$('.save-btn').on('click', onFormSubmit);
+$('.submission-form').on('input', onFormInput)
+
+function onFormSubmit(event) {
+  event.preventDefault();
+
+  var timeStamp = Date.now();
+  var card = generateCardHtml(timeStamp, $('.title-input').val(), $('.body-input').val());
+
+  $( '.bottom-box' ).prepend(card);
+  localStoreCard(timeStamp, card);
+
+  $('form')[0].reset();
+  $('.save-btn').prop('disabled', true);
+}
+
+function onFormInput() {
+  if($('.title-input').val() === '' || $('.body-input').val() === ''){
+    $('.save-btn').prop('disabled', true);
+  }
+  else{
+    $('.save-btn').prop('disabled', false);
+  }
+}
+
 function generateCardHtml(id , title , body) {
   return    `<div id='${id}' class='card-container'>
                 <h2 class='title-of-card'> ${title} </h2>
@@ -10,10 +35,15 @@ function generateCardHtml(id , title , body) {
                 <p class='body-of-card'> ${body}</p>
                 <button class='upvote'></button>
                 <button class='downvote'></button>
-                <p class='quality'> quality: <span class='qualityVariable'> swill </span></p>
+                <p class='quality'> quality: <span class='qualityVariable'>swill</span></p>
                 <hr> 
             </div>`;
 };
+
+var localStoreCard = function(timeStamp, card) {
+  var cardString = JSON.stringify(card);
+  localStorage.setItem(timeStamp, cardString);
+}
 
 // function cardObject() {
 //   return {
@@ -28,25 +58,6 @@ function generateCardHtml(id , title , body) {
 //   numCards++;
 //   $( '.bottom-box' ).prepend(generateCardHtml(key, cardData.title, cardData.body, cardData.quality));
 // });
-
-var localStoreCard = function(timeStamp, card) {
-  var cardString = JSON.stringify(card);
-  localStorage.setItem(timeStamp, cardString);
-}
-
-$('.save-btn').on('click', onFormSubmit);
-
-function onFormSubmit(event) {
-  event.preventDefault();
-
-  var timeStamp = Date.now();
-  var card = generateCardHtml(timeStamp, $('#title-input').val(), $('#body-input').val());
-
-  $( '.bottom-box' ).prepend(card);
-  localStoreCard(timeStamp, card);
-
-  $('form')[0].reset();
-}
 
 // $('.bottom-box').on('click', function(event){
 //   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();

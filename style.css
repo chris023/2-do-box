@@ -36,6 +36,14 @@ input {
   margin: auto;
 }
 
+.body-input {
+  align-items: center;
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  width: 45%;
+}
+
 .body-of-card {
     color: #939598;
     font-family: 'Open Sans', sans-serif;
@@ -114,6 +122,14 @@ input {
   background-color: #045e55;
 }
 
+.title-input {
+  align-items: center;
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  width: 45%;
+}
+
 .title-of-card {
   color: #6D6E71;
   display: inline-block;
@@ -145,27 +161,13 @@ input {
   width: 20px;
 }
 
-#body-input {
-  align-items: center;
-  display: flex;
-  height: 30px;
-  justify-content: space-between;
-  width: 45%;
-}
-
 #search-input {
   height: 30px;
   margin-top: 50px;
   width: 45%;
 }
 
-#title-input {
-  align-items: center;
-  display: flex;
-  height: 30px;
-  justify-content: space-between;
-  width: 45%;
-}
+
 
 @media(max-width: 640px){
 
