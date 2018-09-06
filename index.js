@@ -6,7 +6,8 @@ $(document).ready(loadFromLocalStorage);
 // var qualityVariable = 'swill';
 
 $('.save-btn').on('click', onFormSubmit);
-$('.submission-form').on('input', onFormInput)
+$('.submission-form').on('input', onFormInput);
+$('.bottom-box').on('click', cardListDelegation);
 
 function onFormSubmit(event) {
   event.preventDefault();
@@ -63,62 +64,48 @@ function loadFromLocalStorage() {
 //   };
 // }
 
+function cardListDelegation(event){
 
+  if (event.target.className === 'delete-button') {
+    deleteHandler(event);
+  }
 
-// $('.bottom-box').on('click', function(event){
-//   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-//   var qualityVariable;
+  if (event.target.className === 'upvote') {
+    upvote(event);
+  }
 
-//   if (event.target.className === 'upvote' || event.target.className === 'downvote'){
+  if(event.target.className === 'downvote') {
+    downvote(event);
+  }
+}
 
-//     if (event.target.className === 'upvote' && currentQuality === 'plausible'){
-//       qualityVariable = 'genius';
-//       $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-         
-//     } else if (event.target.className === 'upvote' && currentQuality === 'swill') {
-//       qualityVariable = 'plausible';
-//       $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-         
-//     } else if (event.target.className === 'downvote' && currentQuality === 'plausible') {
-//       qualityVariable = 'swill'
-//       $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+function deleteHandler(event) {
+  var cardElement = $(event.target).closest('.card-container').remove();
+  var timeStamp = cardElement[0].id;
+  localStorage.removeItem(timeStamp);
+}
 
-//     } else if (event.target.className === 'downvote' && currentQuality === 'genius') {
-//       qualityVariable = 'plausible'
-//       $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+function upvote(event){
+  var currentQuality = $(event.target).closest('.qualityVariable').text();
+  if(currentQuality === 'swill'){
+    $(event.target).closest('.qualityVariable').text('plausible');
+    return;
+  }
+  if(currentQuality === 'plausible'){
+    $(event.target).closest('.qualityVariable').text('genius');
+    return;
+  }
+}
 
-//     } else if (event.target.className === 'downvote' && currentQuality === 'swill') {
-//       qualityVariable = 'swill';
-    
-//     } else if (event.target.className === 'upvote' && currentQuality === 'genius') {
-//       qualityVariable = 'genius';
-//     }
-
-//   var cardHTML = $(event.target).closest('.card-container');
-//   var cardHTMLId = cardHTML[0].id;
-//   var cardObjectInJSON = localStorage.getItem(cardHTMLId);
-//   var cardObjectInJS = JSON.parse(cardObjectInJSON);
-
-//   cardObjectInJS.quality = qualityVariable;
-
-//   var generateCardHtmlJSON = JSON.stringify(cardObjectInJS);
-//   localStorage.setItem(cardHTMLId, generateCardHtmlJSON);
-//   }
-   
-//   else if (event.target.className === 'delete-button') {
-//     var cardHTML = $(event.target).closest('.card-container').remove();
-//     var cardHTMLId = cardHTML[0].id;
-//     localStorage.removeItem(cardHTMLId);
-//   }
-// });
-    
-
-
-
-
-
-
-
-
-
+function downvote(event){
+  var currentQuality = $(event.target).closest('.qualityVariable').text();
+  if(currentQuality === 'genius'){
+    $(event.target).closest('.qualityVariable').text('plausible');
+    return;
+  }
+  if(currentQuality === 'plausible'){
+    $(event.target).closest('.qualityVariable').text('swill');
+    return;
+  }
+}
 
