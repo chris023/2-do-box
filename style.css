@@ -167,6 +167,11 @@ input {
   text-align: center;
 }
 
+.completeTask {
+  text-decoration:line-through;
+  text-decoration-color:red;
+}
+
 .upvote {
   background-image: url(./images/upvote.svg);
   background-size: cover;

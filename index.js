@@ -67,21 +67,23 @@ function loadFromLocalStorage() {
   }
 }
 
-function Card(id, title, body, state) {
+function Card(id, title, body, state, completed) {
   this.id = id;
   this.title = title;
   this.body = body;
   this.state = state || 'swill';
+  this.completed = completed || false;
   return;
 }
 
-function cardListClickDelegation(event){
+function cardListClickDelegation(event) {
   if (event.target.className === 'delete-button') deleteHandler(event);
   if (event.target.className === 'upvote') upvote(event);
   if (event.target.className === 'downvote') downvote(event);
+  if (event.target.className === 'complete') completeTask(event);
 }
 
-function cardListInputDelegation(event){
+function cardListInputDelegation(event) {
   if (event.target.className === 'title-of-card' || event.target.className === 'body-of-card'){
     var wholeCard = event.target.parentNode 
     var cardStringForm = wholeCard.outerHTML;
@@ -139,4 +141,15 @@ function search(event){
     }
   }
 }
+
+function completeTask(event) {
+   $(event.target).siblings('.title-of-card').toggleClass('completeTask');
+   var timeStamp = event.target.parentNode.id;
+   var cardObject = JSON.parse(localStorage.getItem(timeStamp));
+   cardObject.completed = !cardObject.completed;
+   updateLocalStorage(cardObject.id, JSON.stringify(cardObject));
+ }
+
+
+
 
