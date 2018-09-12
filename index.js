@@ -31,7 +31,7 @@ function onFormInput() {
   }
 }
 
-function generateCardHtml(id , title , body) {
+function generateCardHtml(id, title, body) {
   return    `<div id='${id}' class='card-container'>
                 <h2 class='title-of-card'> ${title} </h2>
                 <button class='delete-button'></button>
