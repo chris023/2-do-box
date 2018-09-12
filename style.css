@@ -94,7 +94,8 @@ input {
   background-image: url(./images/downvote.svg);
   background-size: cover;
   height: 20px;
-  margin-right: 5px; 
+  margin-right: 5px;
+  padding-top: 10px; 
   width: 20px;
 }
   
@@ -111,6 +112,10 @@ input {
 
 .idea {
   color: #00a79d;
+}
+
+.quality {
+  display: inline;
 }
 
 .save-btn {
@@ -154,6 +159,7 @@ input {
   background-size: cover;
   height: 20px;
   margin-right: 5px; 
+  padding-top: 10px; 
   width: 20px;
 }
 

@@ -2,7 +2,8 @@ $(document).ready(loadFromLocalStorage);
 
 $('.save-btn').on('click', onFormSubmit);
 $('.submission-form').on('input', onFormInput);
-$('.bottom-box').on('click', cardListDelegation);
+$('.bottom-box').on('click', cardListClickDelegation);
+$('.bottom-box').on('input', cardListInputDelegation);
 $('.search-input').on('input', search);
 
 function onFormSubmit(event) {
@@ -56,8 +57,8 @@ function updateLocalStorage(timeStamp, card) {
 function loadFromLocalStorage() {
   for (var i = 0; i < localStorage.length; i++) {
     var timeStamp = localStorage.key(i);
-    var stringifiedCardData = localStorage.getItem(timeStamp);
-    var cardObject = JSON.parse(stringifiedCardData);
+    var stringifiedCardObject = localStorage.getItem(timeStamp);
+    var cardObject = JSON.parse(stringifiedCardObject);
     var cardHtml = generateCardHtml(cardObject);
     $( '.bottom-box' ).prepend(cardHtml);
   }
@@ -71,18 +72,17 @@ function Card(id, title, body, state) {
   return;
 }
 
-function cardListDelegation(event){
+function cardListClickDelegation(event){
+  if (event.target.className === 'delete-button') deleteHandler(event);
+  if (event.target.className === 'upvote') upvote(event);
+  if (event.target.className === 'downvote') downvote(event);
+}
 
-  if (event.target.className === 'delete-button') {
-    deleteHandler(event);
-  }
-
-  if (event.target.className === 'upvote') {
-    upvote(event);
-  }
-
-  if(event.target.className === 'downvote') {
-    downvote(event);
+function cardListInputDelegation(event){
+  if (event.target.className === 'title-input'){
+    //Grab the parent element (which is the whole card)
+    //create a card object from that parent element's outerHTML
+    //Store that card object locally
   }
 }
 
@@ -124,7 +124,7 @@ function search(event){
   var searchTerm = $(event.target).val();
   var currentCards = $('.bottom-box').children();
   
-  for(var i=0; i < currentCards.length; i++) {
+  for (var i=0; i < currentCards.length; i++) {
     var title = $(currentCards[i]).children('.title-of-card').text();
     var body = $(currentCards[i]).children('.body-of-card').text();
       
