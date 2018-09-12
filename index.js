@@ -41,6 +41,8 @@ function generateCardHtml(card) {
             </div>`;
 };
 
+
+
 function generateCardFromHtml(cardHtml) {
   var state = $(cardHtml).children('.quality').children('.qualityVariable').text();
   var id = $(cardHtml).attr('id');
@@ -79,10 +81,11 @@ function cardListClickDelegation(event){
 }
 
 function cardListInputDelegation(event){
-  if (event.target.className === 'title-input'){
-    //Grab the parent element (which is the whole card)
-    //create a card object from that parent element's outerHTML
-    //Store that card object locally
+  if (event.target.className === 'title-of-card' || event.target.className === 'body-of-card'){
+    var wholeCard = event.target.parentNode 
+    var cardStringForm = wholeCard.outerHTML;
+    var cardObject = generateCardFromHtml(cardStringForm)
+    localStorage.setItem(cardObject.id, JSON.stringify(cardObject))
   }
 }
 
