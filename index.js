@@ -16,7 +16,7 @@ function onFormSubmit(event) {
   var card = generateCardHtml(timeStamp, $('.title-input').val(), $('.body-input').val());
 
   $( '.bottom-box' ).prepend(card);
-  localStoreCard(timeStamp, card);
+  updateLocalStorage(timeStamp, card);
 
   $('form')[0].reset();
   $('.save-btn').prop('disabled', true);
@@ -43,9 +43,8 @@ function generateCardHtml(id, title, body) {
             </div>`;
 };
 
-function localStoreCard(timeStamp, cardHtml) {
-  var cardString = cardHtml;
-  localStorage.setItem(timeStamp, cardString);
+function updateLocalStorage(timeStamp, cardHtml) {
+  localStorage.setItem(timeStamp, cardHtml);
 }
 
 function loadFromLocalStorage() {
@@ -86,25 +85,32 @@ function deleteHandler(event) {
 }
 
 function upvote(event){
-  var currentQuality = $(event.target).closest('.qualityVariable').text();
+  var currentQuality = $(event.target).siblings('.quality').children('.qualityVariable').text();
+  var id = $(event.target).parent().attr('id');
   if(currentQuality === 'swill'){
-    $(event.target).closest('.qualityVariable').text('plausible');
+    $(event.target).siblings('.quality').children('.qualityVariable').text('plausible');
+    updateLocalStorage(id, $(event.target).parent()[0].outerHTML);
     return;
   }
   if(currentQuality === 'plausible'){
-    $(event.target).closest('.qualityVariable').text('genius');
+    $(event.target).siblings('.quality').children('.qualityVariable').text('genius');
+    updateLocalStorage(id, $(event.target).parent()[0].outerHTML);
     return;
   }
 }
 
 function downvote(event){
-  var currentQuality = $(event.target).closest('.qualityVariable').text();
+  var currentQuality = $(event.target).siblings('.quality').children('.qualityVariable').text();
+  var id = $(event.target).parent().attr('id');
+  
   if(currentQuality === 'genius'){
-    $(event.target).closest('.qualityVariable').text('plausible');
+    $(event.target).siblings('.quality').children('.qualityVariable').text('plausible');
+    updateLocalStorage(id, $(event.target).parent()[0].outerHTML);
     return;
   }
   if(currentQuality === 'plausible'){
-    $(event.target).closest('.qualityVariable').text('swill');
+    $(event.target).siblings('.quality').children('.qualityVariable').text('swill');
+    updateLocalStorage(id, $(event.target).parent()[0].outerHTML);
     return;
   }
 }
