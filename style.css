@@ -105,6 +105,10 @@ input {
   width: 20px;
 }
 
+.hide {
+  display: none;
+}
+
 .idea {
   color: #00a79d;
 }
@@ -161,7 +165,7 @@ input {
   width: 20px;
 }
 
-#search-input {
+.search-input {
   height: 30px;
   margin-top: 50px;
   width: 45%;

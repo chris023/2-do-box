@@ -8,6 +8,7 @@ $(document).ready(loadFromLocalStorage);
 $('.save-btn').on('click', onFormSubmit);
 $('.submission-form').on('input', onFormInput);
 $('.bottom-box').on('click', cardListDelegation);
+$('.search-input').on('input', search);
 
 function onFormSubmit(event) {
   event.preventDefault();
@@ -102,7 +103,7 @@ function upvote(event){
 function downvote(event){
   var currentQuality = $(event.target).siblings('.quality').children('.qualityVariable').text();
   var id = $(event.target).parent().attr('id');
-  
+
   if(currentQuality === 'genius'){
     $(event.target).siblings('.quality').children('.qualityVariable').text('plausible');
     updateLocalStorage(id, $(event.target).parent()[0].outerHTML);
@@ -112,6 +113,22 @@ function downvote(event){
     $(event.target).siblings('.quality').children('.qualityVariable').text('swill');
     updateLocalStorage(id, $(event.target).parent()[0].outerHTML);
     return;
+  }
+}
+
+function search(event){
+  var searchTerm = $(event.target).val();
+  var currentCards = $('.bottom-box').children();
+  for(var i=0; i < currentCards.length; i++) {
+    var title = $(currentCards[i]).children('.title-of-card').text();
+    var body = $(currentCards[i]).children('.body-of-card').text();
+      
+    if(title.includes(searchTerm) || body.includes(searchTerm)){
+      $(currentCards[i]).removeClass('hide');
+    } else {
+      $(currentCards[i]).addClass('hide');
+    }
+
   }
 }
 
