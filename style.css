@@ -8,6 +8,10 @@ button {
   border: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 h1 {
   color: #6d6e71;
   display: inline-block;
@@ -67,6 +71,15 @@ input {
   display: flex;
   flex-direction: column;
   font-family: 'Roboto Slab', serif;
+}
+
+.complete {
+  border: solid 1px #d1d3d4;
+  border-radius: 14px;
+  color: #939598;
+  font-size: 16px;
+  float: right;
+  height: 24px;
 }
 
 .container-box {

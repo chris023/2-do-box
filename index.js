@@ -37,6 +37,7 @@ function generateCardHtml(card) {
                 <button class='upvote'></button>
                 <button class='downvote'></button>
                 <p class='quality'> quality: <span class='qualityVariable'>${card.state}</span></p>
+                <button class='complete'>complete</button>
                 <hr> 
             </div>`;
 };
